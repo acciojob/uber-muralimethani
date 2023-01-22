@@ -1,36 +1,32 @@
 package com.driver.model;
 
-import com.driver.model.Cab;
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Drivers")
 public class Driver {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int driverId;
-
-    private String mobile;
 
     private String password;
 
-    @OneToOne(mappedBy = "driver",cascade = CascadeType.ALL)
+    private String mobile;
+
+    @OneToOne
+    @JoinColumn
     private Cab cab;
 
+    public Driver(){}
 
-    @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
-    private List<TripBooking> tripBookingList;
+    @OneToMany(mappedBy="driver",cascade =CascadeType.ALL )
+    List<TripBooking> tripBookings=new ArrayList<>();
 
-
-    public Driver(String mobile, String password) {
-        this.mobile = mobile;
+    public Driver(String password, String mobile) {
         this.password = password;
-    }
-
-    public Driver() {
+        this.mobile = mobile;
     }
 
     public int getDriverId() {
@@ -41,20 +37,20 @@ public class Driver {
         this.driverId = driverId;
     }
 
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public Cab getCab() {
@@ -65,11 +61,11 @@ public class Driver {
         this.cab = cab;
     }
 
-    public List<TripBooking> getTripBookingList() {
-        return tripBookingList;
+    public List<TripBooking> getTripBookings() {
+        return tripBookings;
     }
 
-    public void setTripBookingList(List<TripBooking> tripBookingList) {
-        this.tripBookingList = tripBookingList;
+    public void setTripBookings(List<TripBooking> tripBookings) {
+        this.tripBookings = tripBookings;
     }
 }

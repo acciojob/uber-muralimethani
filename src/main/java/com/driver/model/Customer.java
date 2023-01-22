@@ -1,32 +1,31 @@
 package com.driver.model;
+
 import javax.persistence.*;
-import java.util.Currency;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name ="customer_table")
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerId;
-
-    private String mobile;
 
     private String password;
 
+    private String mobile;
 
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-    private List<TripBooking> tripBookingList;
+    @OneToMany(mappedBy= "customer", cascade = CascadeType.ALL)
+    private List<TripBooking> tripBookings=new ArrayList<>();
 
-
-    public Customer(String mobile, String password) {
-
-        this.mobile = mobile;
+    public Customer(int customerId, String password, String mobile) {
+        this.customerId = customerId;
         this.password = password;
+        this.mobile = mobile;
     }
 
-    public Customer() {
-    }
+    public Customer(){}
 
     public int getCustomerId() {
         return customerId;
@@ -34,14 +33,6 @@ public class Customer {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
     }
 
     public String getPassword() {
@@ -52,11 +43,19 @@ public class Customer {
         this.password = password;
     }
 
-    public List<TripBooking> getTripBookingList() {
-        return tripBookingList;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setTripBookingList(List<TripBooking> tripBookingList) {
-        this.tripBookingList = tripBookingList;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public List<TripBooking> getTripBookings() {
+        return tripBookings;
+    }
+
+    public void setTripBookings(List<TripBooking> tripBookings) {
+        this.tripBookings = tripBookings;
     }
 }

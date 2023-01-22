@@ -4,9 +4,8 @@ import javax.persistence.*;
 
 @Entity
 public class TripBooking {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tripBookingId;
 
     private String fromLocation;
@@ -16,34 +15,26 @@ public class TripBooking {
     private int distanceInKm;
 
     @Enumerated(EnumType.STRING)
-    private TripStatus tripStatus;
+    private TripStatus status;
 
     private int bill;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn
     private Customer customer;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn
     private Driver driver;
 
-    public TripBooking(String fromLocation, String toLocation, int distanceInKm, TripStatus tripStatus, int bill) {
+    public TripBooking(){}
+
+    public TripBooking(String fromLocation, String toLocation, int distanceInKm, TripStatus status,int bill) {
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.distanceInKm = distanceInKm;
-        this.tripStatus = tripStatus;
-        this.bill = bill;
-    }
-
-    public TripBooking(String fromLocation, String toLocation, int distanceInKm, TripStatus tripStatus) {
-        this.fromLocation = fromLocation;
-        this.toLocation = toLocation;
-        this.distanceInKm = distanceInKm;
-        this.tripStatus = tripStatus;
-    }
-
-    public TripBooking() {
+        this.status = status;
+        this.bill=bill;
     }
 
     public int getTripBookingId() {
@@ -79,11 +70,11 @@ public class TripBooking {
     }
 
     public TripStatus getStatus() {
-        return tripStatus;
+        return status;
     }
 
-    public void setStatus(TripStatus tripStatus) {
-        this.tripStatus = tripStatus;
+    public void setStatus(TripStatus status) {
+        this.status = status;
     }
 
     public int getBill() {
