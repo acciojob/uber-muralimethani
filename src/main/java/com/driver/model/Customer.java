@@ -5,27 +5,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name ="customer_table")
+@Table
 public class Customer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerId;
-
-    private String password;
-
     private String mobile;
-
-    @OneToMany(mappedBy= "customer", cascade = CascadeType.ALL)
-    private List<TripBooking> tripBookings=new ArrayList<>();
-
-    public Customer(int customerId, String password, String mobile) {
-        this.customerId = customerId;
-        this.password = password;
-        this.mobile = mobile;
+    private String password;
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    private List<TripBooking> tripBookings = new ArrayList<>();
+    public Customer() {
     }
 
-    public Customer(){}
+    public List<TripBooking> getTripBookings() {
+        return tripBookings;
+    }
+
+    public void setTripBookings(List<TripBooking> tripBookings) {
+        this.tripBookings = tripBookings;
+    }
+
+    public Customer(String mobile, String password) {
+        this.mobile = mobile;
+        this.password = password;
+    }
 
     public int getCustomerId() {
         return customerId;
@@ -33,14 +36,6 @@ public class Customer {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getMobile() {
@@ -51,11 +46,11 @@ public class Customer {
         this.mobile = mobile;
     }
 
-    public List<TripBooking> getTripBookings() {
-        return tripBookings;
+    public String getPassword() {
+        return password;
     }
 
-    public void setTripBookings(List<TripBooking> tripBookings) {
-        this.tripBookings = tripBookings;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -5,44 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table
 public class Driver {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int driverId;
-
+    private  String mobile;
     private String password;
-
-    private String mobile;
-
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "driver" , cascade = CascadeType.ALL)
     private Cab cab;
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+    private List<TripBooking> tripBookings = new ArrayList<>();
+    public Driver() {
+    }
 
-    public Driver(){}
-
-    @OneToMany(mappedBy="driver",cascade =CascadeType.ALL )
-    List<TripBooking> tripBookings=new ArrayList<>();
-
-    public Driver(String password, String mobile) {
-        this.password = password;
+    public Driver(String mobile, String password) {
         this.mobile = mobile;
-    }
-
-    public int getDriverId() {
-        return driverId;
-    }
-
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<TripBooking> getTripBookings() {
+        return tripBookings;
+    }
+
+    public void setTripBookings(List<TripBooking> tripBookings) {
+        this.tripBookings = tripBookings;
     }
 
     public String getMobile() {
@@ -53,6 +40,14 @@ public class Driver {
         this.mobile = mobile;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Cab getCab() {
         return cab;
     }
@@ -61,11 +56,11 @@ public class Driver {
         this.cab = cab;
     }
 
-    public List<TripBooking> getTripBookings() {
-        return tripBookings;
+    public int getDriverId() {
+        return driverId;
     }
 
-    public void setTripBookings(List<TripBooking> tripBookings) {
-        this.tripBookings = tripBookings;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 }
