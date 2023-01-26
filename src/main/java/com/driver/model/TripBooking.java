@@ -37,6 +37,9 @@ public class TripBooking {
         this.bill=bill;
     }
 
+    public TripBooking(String fromLocation, String toLocation, int distanceInKm) {
+    }
+
     public int getTripBookingId() {
         return tripBookingId;
     }
